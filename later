@@ -1,0 +1,164 @@
+SWORD_LEFT = ['assets/male/swordl/swordl1.png', 'assets/male/swordl/swordl2.png', 'assets/male/swordl/swordl3.png',
+              'assets/male/swordl/swordl4.png', 'assets/male/swordl/swordl5.png', 'assets/male/swordl/swordl6.png',
+              'assets/male/swordl/swordl5.png', 'assets/male/swordl/swordl4.png', 'assets/male/swordl/swordl3.png',
+              'assets/male/swordl/swordl2.png', 'assets/male/swordl/swordl1.png']
+SWORD_RIGHT = ['assets/male/swordr/swordr1.png', 'assets/male/swordr/swordr2.png', 'assets/male/swordr/swordr3.png',
+               'assets/male/swordr/swordr4.png', 'assets/male/swordr/swordr5.png', 'assets/male/swordr/swordr6.png',
+               'assets/male/swordr/swordr5.png', 'assets/male/swordr/swordr4.png', 'assets/male/swordr/swordr3.png',
+               'assets/male/swordr/swordr2.png', 'assets/male/swordr/swordr1.png']
+SWORD_BACK = ['assets/male/swordf/swordf1.png', 'assets/male/swordf/swordf2.png', 'assets/male/swordf/swordf3.png',
+              'assets/male/swordf/swordf4.png', 'assets/male/swordf/swordf5.png', 'assets/male/swordf/swordf6.png',
+              'assets/male/swordf/swordf5.png', 'assets/male/swordf/swordf4.png', 'assets/male/swordf/swordf3.png',
+              'assets/male/swordf/swordf2.png', 'assets/male/swordf/swordf1.png']
+SWORD_FOR = ['assets/male/swordb/swordb1.png', 'assets/male/swordb/swordb2.png', 'assets/male/swordb/swordb3.png',
+             'assets/male/swordb/swordb4.png', 'assets/male/swordb/swordb5.png', 'assets/male/swordb/swordb6.png',
+             'assets/male/swordb/swordb5.png', 'assets/male/swordb/swordb4.png', 'assets/male/swordb/swordb3.png',
+             'assets/male/swordb/swordb2.png', 'assets/male/swordb/swordb1.png']
+
+    def offset_image(self):
+
+        if self.image == self.game.sword_left[0] or self.image == self.game.sword_left[10]:
+            self.rect.x = self.rect.x - 36
+            self.rect.y = self.rect.y + 2
+
+        elif self.image == self.game.sword_left[1] or self.image == self.game.sword_left[9]:
+            self.rect.x = self.rect.x - 11
+            self.rect.y = self.rect.y + 2
+
+        elif self.image == self.game.sword_left[2] or self.image == self.game.sword_left[8]:
+            self.rect.x = self.rect.x - 2
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_left[3] or self.image == self.game.sword_left[7]:
+            self.rect.x = self.rect.x - 16
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_left[4] or self.image == self.game.sword_left[6]:
+            self.rect.x = self.rect.x - 69
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_left[5]:
+            self.rect.x = self.rect.x - 67
+            self.rect.y = self.rect.y
+
+        if self.image == self.game.sword_forward[0] or self.image == self.game.sword_forward[10]:
+            self.rect.x = self.rect.x - 9
+            self.rect.y = self.rect.y + 3
+
+        elif self.image == self.game.sword_forward[1] or self.image == self.game.sword_forward[9]:
+            self.rect.x = self.rect.x - 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[2] or self.image == self.game.sword_forward[8]:
+            self.rect.x = self.rect.x - 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[3] or self.image == self.game.sword_forward[7]:
+            self.rect.x = self.rect.x - 29
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[4] or self.image == self.game.sword_forward[6]:
+            self.rect.x = self.rect.x - 33
+            self.rect.y = self.rect.y
+
+        if self.image == self.game.sword_forward[5]:
+            self.rect.x = self.rect.x
+            self.rect.y = self.rect.y
+
+        if self.image == self.game.sword_back[0] or self.image == self.game.sword_back[10]:
+            self.rect.x = self.rect.x - 9
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[1] or self.image == self.game.sword_back[9]:
+            self.rect.x = self.rect.x - 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[2] or self.image == self.game.sword_back[8]:
+            self.rect.x = self.rect.x - 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[3] or self.image == self.game.sword_back[7]:
+            self.rect.x = self.rect.x - 30
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[4] or self.image == self.game.sword_back[6]:
+            self.rect.x = self.rect.x - 29
+            self.rect.y = self.rect.y - 18
+
+        elif self.image == self.game.sword_back[5]:
+            self.rect.x = self.rect.x
+            self.rect.y = self.rect.y - 16
+
+    def unoffset_image(self):
+
+        if self.image == self.game.sword_left[0] or self.image == self.game.sword_left[10]:
+            self.rect.x = self.rect.x + 36
+            self.rect.y = self.rect.y - 2
+
+        elif self.image == self.game.sword_left[1] or self.image == self.game.sword_left[9]:
+            self.rect.x = self.rect.x + 11
+            self.rect.y = self.rect.y - 2
+
+        elif self.image == self.game.sword_left[2] or self.image == self.game.sword_left[8]:
+            self.rect.x = self.rect.x + 2
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_left[3] or self.image == self.game.sword_left[7]:
+            self.rect.x = self.rect.x + 16
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_left[4] or self.image == self.game.sword_left[6]:
+            self.rect.x = self.rect.x + 69
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_left[5]:
+            self.rect.x = self.rect.x + 67
+            self.rect.y = self.rect.y
+
+        if self.image == self.game.sword_forward[0] or self.image == self.game.sword_forward[10]:
+            self.rect.x = self.rect.x + 9
+            self.rect.y = self.rect.y - 3
+
+        elif self.image == self.game.sword_forward[1] or self.image == self.game.sword_forward[9]:
+            self.rect.x = self.rect.x + 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[2] or self.image == self.game.sword_forward[8]:
+            self.rect.x = self.rect.x + 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[3] or self.image == self.game.sword_forward[7]:
+            self.rect.x = self.rect.x + 29
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[4] or self.image == self.game.sword_forward[6]:
+            self.rect.x = self.rect.x + 33
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_forward[5]:
+            self.rect.x = self.rect.x
+            self.rect.y = self.rect.y
+
+        if self.image == self.game.sword_back[0] or self.image == self.game.sword_back[10]:
+            self.rect.x = self.rect.x + 9
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[1] or self.image == self.game.sword_back[9]:
+            self.rect.x = self.rect.x + 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[2] or self.image == self.game.sword_back[8]:
+            self.rect.x = self.rect.x + 20
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[3] or self.image == self.game.sword_back[7]:
+            self.rect.x = self.rect.x + 30
+            self.rect.y = self.rect.y
+
+        elif self.image == self.game.sword_back[4] or self.image == self.game.sword_back[6]:
+            self.rect.x = self.rect.x + 29
+            self.rect.y = self.rect.y + 21
+
+        elif self.image == self.game.sword_back[5]:
+            self.rect.x = self.rect.x
+            self.rect.y = self.rect.y + 21

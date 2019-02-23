@@ -1,0 +1,82 @@
+MAP1_ON = True
+#TODO turn to true when building exe
+MAP1_ENEMIES = True
+MAP1_COIN1 = True
+MAP1_COIN2 = True
+MAP1_HEART = True
+MAP1_STRAW = False
+#TODO make true when exe
+
+MAP2_ON = False
+MAP2_EMEMIES = True
+MAP2_COIN = True
+MAP2_STRAW = True
+MAP2_T0_MAP1 = False
+
+MAP3_TO_MAP1 = False
+MAP3_ON = False
+MAP3_ENEMIES = True
+MAP3_COIN1 = True
+MAP3_COIN2 = True
+MAP3_COIN3 = True
+MAP3_COIN4 = True
+MAP3_HEART = True
+
+MAP4_TO_MAP3 = False
+MAP4_ON = False
+MAP4_ENEMIES = True
+MAP4_COIN1 = True
+MAP4_COIN2 = True
+MAP4_COIN3 = True
+MAP4_COIN4 = True
+MAP4_HEART1 = True
+MAP4_HEART2 = True
+
+MAP5_TO_MAP4 = False
+MAP5_ON = False
+MAP5_ENEMIES = True
+
+MAP6_TO_MAP4 = False
+MAP6_ON = False
+MAP6_ENEMIES = True
+MAP6_HEART1 = True
+MAP6_HEART2 = True
+MAP6_HEART3 = True
+
+MAP7_TO_MAP6 = False
+MAP7_ON = False
+MAP7_ENEMIES = True
+MAP7_HEART = True
+
+MAP8_TO_MAP6 = False
+MAP8_ON = False
+MAP8_ENEMIES = True
+MAP8_HEART = True
+
+MAP9_TO_MAP6 = False
+MAP9_ON = False
+MAP9_ENEMIES = True
+MAP9_HEART1 = True
+MAP9_HEART2 = True
+
+MAP10_ON = False
+MAP10_ENEMIES = True
+
+MAP11_ON = False
+MAP11_ENEMIES = True
+
+#todo make false when exe
+GOT_SWORD = True
+SWORD_ON = True
+BOW_ON = False
+GOT_BOW = True
+SMOKE_BOMB_ON = False
+BOMB_ON = False
+BOMBS = 0
+ARROWS = 100
+MONEY = 0
+GOT_HAT = False
+GOT_PANTS = False
+GOT_SHIRT = False
+HEALTH = 300
+SMOKE_BOMBS = 100
