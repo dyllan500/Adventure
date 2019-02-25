@@ -1,4 +1,4 @@
-from sprites import *
+from testsprites import *
 from tileset import *
 from save import *
 import pygame as pg
@@ -18,6 +18,7 @@ class Game:
         #self.joy = self.joy[0]
 
     def load_data(self):
+        self.player2_on = False
         self.map1_on = MAP1_ON
         self.map1_enemies = MAP1_ENEMIES
         self.map1_straw = MAP1_STRAW
@@ -853,7 +854,9 @@ class Game:
 
     def new(self):
         self.all_sprites = pg.sprite.LayeredUpdates()
-        self.player_goup = pg.sprite.Group()
+        if self.player2_on == True:
+            self.player2_goup = pg.sprite.Group()
+        self.player_group = pg.sprite.Group()
         self.bomb_group = pg.sprite.Group()
         self.smoke_bomb_group = pg.sprite.Group()
         self.smoke_group = pg.sprite.Group()
@@ -923,6 +926,8 @@ class Game:
 
     def update(self):
         self.all_sprites.move_to_back(self.player)
+        if self.player2_on:
+            self.all_sprites.move_to_back(self.player)
         self.all_sprites.update()
 
         # for m in self.walls:
@@ -971,11 +976,16 @@ class Game:
             self.draw_map11()
         self.all_sprites.draw(self.screen)
         self.hud()
-       # self.debug()
+        self.debug()
         pg.display.flip()
 
     def debug(self):
         self.player.unoffset_image()
+
+        for i in self.player_group:
+            pg.draw.rect(self.screen, WHITE,
+                         (i.rect.x - 30, i.rect.y - 10, i.rect.width + 60, i.rect.height + 60), 2)
+
         pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 30, self.player.rect.y - 10, self.player.rect.width + 60,
                                           self.player.rect.height + 60), 2)
         if self.player.back_rect is True:
@@ -1337,7 +1347,9 @@ class Game:
         for tile_object in self.map1.tmxdata.objects:
             if tile_object.name == 'player':
                 if self.map2_to_map1 is False and self.map3_to_map1 is False:
-                    self.player = Player(self, tile_object.x, tile_object.y)
+                    self.player = Player(self, tile_object.x, tile_object.y, "1")
+                    if self.player2_on is True:
+                        self.player = Player(self, tile_object.x+10, tile_object.y, "2")
             if tile_object.name == 'playerfrommap2':
                 if self.map2_to_map1 is True and self.map3_to_map1 is False:
                     self.player = Player(self, tile_object.x, tile_object.y)
@@ -1922,6 +1934,7 @@ class Game:
                 time = 0
             if 450 + 180 > mouse[0] > 450 and 250 + 80 > mouse[1] > 250:
                 if click[0] == 1:
+                    self.player2_on = True
                     pg.mixer.music.stop()
                     break
             textsurqfacee = self.myfont.render("START", False, (0, 0, 0))
