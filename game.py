@@ -971,38 +971,42 @@ class Game:
             self.draw_map11()
         self.all_sprites.draw(self.screen)
         self.hud()
-       # self.debug()
+        #self.debug()
         pg.display.flip()
 
     def debug(self):
-        self.player.unoffset_image()
-        pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 30, self.player.rect.y - 10, self.player.rect.width + 60,
-                                          self.player.rect.height + 60), 2)
-        if self.player.back_rect is True:
-            pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 25, self.player.rect.y + 25,
-                                              self.player.rect.width + 50, self.player.rect.height), 2)
+        for i in self.walls:
+            print(i.x)
+            print(i.y)
 
-        if self.player.for_rect is True:
-            pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 25, self.player.rect.y - 25,
-                                              self.player.rect.width + 50, self.player.rect.height), 2)
-
-        if self.player.sword_swing_right is True:
-            pg.draw.rect(self.screen, WHITE, (self.player.rect.x + 25, self.player.rect.y + 5,
-                                              self.player.rect.width + 40, self.player.rect.height - 15), 2)
-
-        if self.player.sword_swing_left is True:
-            pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 70, self.player.rect.y + 5,
-                                              self.player.rect.width + 36, self.player.rect.height - 15), 2)
-
-        for i in self.mob:
-            pg.draw.rect(self.screen, WHITE, (i.rect.x, i.rect.y, i.rect.width, i.rect.height), 2)
-        self.player.offset_image()
-
-        for i in self.bomb_group:
-            pg.draw.rect(self.screen, WHITE, (i.rect.x - 40, i.rect.y - 30, i.rect.width + 80, i.rect.height + 80), 2)
-
-        for i in self.smoke_group:
-            pg.draw.rect(self.screen, WHITE, (i.rect.x + 40, i.rect.y + 20, i.rect.width - 80, i.rect.height - 40), 2)
+        # self.player.unoffset_image()
+        # pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 30, self.player.rect.y - 10, self.player.rect.width + 60,
+        #                                   self.player.rect.height + 60), 2)
+        # if self.player.back_rect is True:
+        #     pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 25, self.player.rect.y + 25,
+        #                                       self.player.rect.width + 50, self.player.rect.height), 2)
+        #
+        # if self.player.for_rect is True:
+        #     pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 25, self.player.rect.y - 25,
+        #                                       self.player.rect.width + 50, self.player.rect.height), 2)
+        #
+        # if self.player.sword_swing_right is True:
+        #     pg.draw.rect(self.screen, WHITE, (self.player.rect.x + 25, self.player.rect.y + 5,
+        #                                       self.player.rect.width + 40, self.player.rect.height - 15), 2)
+        #
+        # if self.player.sword_swing_left is True:
+        #     pg.draw.rect(self.screen, WHITE, (self.player.rect.x - 70, self.player.rect.y + 5,
+        #                                       self.player.rect.width + 36, self.player.rect.height - 15), 2)
+        #
+        # for i in self.mob:
+        #     pg.draw.rect(self.screen, WHITE, (i.rect.x, i.rect.y, i.rect.width, i.rect.height), 2)
+        # self.player.offset_image()
+        #
+        # for i in self.bomb_group:
+        #     pg.draw.rect(self.screen, WHITE, (i.rect.x - 40, i.rect.y - 30, i.rect.width + 80, i.rect.height + 80), 2)
+        #
+        # for i in self.smoke_group:
+        #     pg.draw.rect(self.screen, WHITE, (i.rect.x + 40, i.rect.y + 20, i.rect.width - 80, i.rect.height - 40), 2)
 
     def events(self):
         for event in pg.event.get():
@@ -1387,7 +1391,7 @@ class Game:
                 if self.got_sword is True and self.map2_enemies is True:
                     Slime(self, tile_object.x, tile_object.y)
             if tile_object.name == 'player':
-                self.player = Player(self, tile_object.x, tile_object.y, "1")
+                self.player = Player(self, tile_object.x, tile_object.y)
             if tile_object.name == 'coin' and self.map2_coin is True:
                 Coin(self, tile_object.x, tile_object.y)
             if tile_object.name == 'heart':
