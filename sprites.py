@@ -5,7 +5,6 @@ import pygame as pg
 from random import uniform, choice
 
 
-
 def enemy_hit(sprite, game):
     if game.player.back_rect is True:
         if sprite.rect.colliderect((game.player.rect.x - 25, game.player.rect.y + 25,
@@ -870,7 +869,7 @@ class Bomb(pg.sprite.Sprite):
             for m in self.game.mob:
                 if m.rect.colliderect(self.rect.x - 40, self.rect.y - 30, self.rect.width + 80, self.rect.height + 80) == 1:
                     if m.being_attacked is False:
-                        m.health -= 100
+                        m.health -= 50
                         m.being_attacked = True
             if self.game.player.rect.colliderect(self.rect.x - 40, self.rect.y - 30, self.rect.width + 80, self.rect.height + 80) == 1:
                 if self.game.player.being_attacked is False:
@@ -919,8 +918,6 @@ class Wall(pg.sprite.Sprite):
         self.rect = pg.Rect(x, y, w, h)
         self.x = x
         self.y = y
-        self.height = h
-        self.width = w
         self.rect.x = x
         self.rect.y = y
 
@@ -998,21 +995,10 @@ class Slime(pg.sprite.Sprite):
             self.current_frame = 0
             if self.mob_death is True:
                 choices = choice((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24))
-                if self.color == "green":
-                    if choices == 1:
-                        Coin(self.game, self.pos.x, self.pos.y)
-                    elif choices == 2:
-                        Heart(self.game, self.pos.x, self.pos.y)
-                elif self.color == "red":
-                    if choices == 0 or choices == 1 or choices == 5:
-                        Coin(self.game, self.pos.x, self.pos.y)
-                    elif choices == 2 or choices == 3 or choices == 4:
-                        Heart(self.game, self.pos.x, self.pos.y)
-                elif self.color == "blue":
-                    if choices == 1 or choices == 0:
-                        Coin(self.game, self.pos.x, self.pos.y)
-                    elif choices == 2 or choices == 3:
-                        Heart(self.game, self.pos.x, self.pos.y)
+                if choices == 1:
+                    Coin(self.game, self.pos.x, self.pos.y)
+                elif choices == 2:
+                    Heart(self.game, self.pos.x, self.pos.y)
                 self.kill()
 
         if self.rect.colliderect((self.game.player.rect.x - 70, self.game.player.rect.y - 70,
@@ -1043,13 +1029,17 @@ class Slime(pg.sprite.Sprite):
                 self.game.health -= 50
                 self.game.player.being_attacked = True
                 if self.game.player.back_on:
-                    self.game.player.pos = vec(self.game.player.pos.x,self.game.player.pos.y-self.knockback)
+                    if vec(self.game.player.pos.x,self.game.player.pos.y-self.knockback)[1] >= 100:
+                        self.game.player.pos = vec(self.game.player.pos.x, self.game.player.pos.y - self.knockback)
                 elif self.game.player.forward_on:
-                    self.game.player.pos = vec(self.game.player.pos.x,self.game.player.pos.y+self.knockback)
+                    if vec(self.game.player.pos.x,self.game.player.pos.y+self.knockback)[1] <= 700:
+                        self.game.player.pos = vec(self.game.player.pos.x,self.game.player.pos.y+self.knockback)
                 elif self.game.player.left_on:
-                    self.game.player.pos = vec(self.game.player.pos.x-self.knockback,self.game.player.pos.y)
+                    if vec(self.game.player.pos.x-self.knockback,self.game.player.pos.y)[0] >= 100:
+                        self.game.player.pos = vec(self.game.player.pos.x-self.knockback,self.game.player.pos.y)
                 elif self.game.player.right_on:
-                    self.game.player.pos = vec(self.game.player.pos.x+self.knockback,self.game.player.pos.y-self.knockback)
+                    if vec(self.game.player.pos.x+self.knockback,self.game.player.pos.y)[0] <= 1200:
+                        self.game.player.pos = vec(self.game.player.pos.x+self.knockback,self.game.player.pos.y)
 
         if self.game.player.visible is True:
             self.rot = (self.game.player.pos - self.pos).angle_to(vec(1, 0))
@@ -1057,10 +1047,10 @@ class Slime(pg.sprite.Sprite):
             self.acc = vec(1, 0).rotate(-self.rot)
             self.avoid_mobs()
             self.acc.scale_to_length(SLIME_SPEED)
-            if self.mob_death is False:
-                self.acc += self.vel * -1
-                self.vel += self.acc * self.game.dt
-                self.pos += self.vel * self.game.dt + 0.5 * self.acc * self.game.dt ** 2
+        if self.mob_death is False:
+            self.acc += self.vel * -1
+            self.vel += self.acc * self.game.dt
+            self.pos += self.vel * self.game.dt + 0.5 * self.acc * self.game.dt ** 2
         self.rect.centerx = self.pos.x
         collision(self, self.game.walls, 'x')
         collision(self, self.game.player_goup, 'x')
@@ -1389,7 +1379,6 @@ class Goblin(pg.sprite.Sprite):
         self.health = GREEN_SLIME_HEALTH
         self.being_attacked = False
         self.damage_time = 0
-        self.knockback = SLIME_KNOCKBACK
 
     def death(self):
         if self.mob_death is False:
@@ -1558,7 +1547,6 @@ class Skeleton(pg.sprite.Sprite):
         self.health = GREEN_SLIME_HEALTH
         self.damage_time = 0
         self.being_attacked = False
-        self.knockback = SLIME_KNOCKBACK
 
     def death(self):
         if self.mob_death is False:
@@ -1959,7 +1947,6 @@ class Imp(pg.sprite.Sprite):
         elif self.color == "red":
             self.health = RED_SLIME_HEALTH
         self.being_attacked = False
-        self.knockback = SLIME_KNOCKBACK
         self.damage_time = 0
 
     def death(self):
@@ -2037,21 +2024,10 @@ class Imp(pg.sprite.Sprite):
         if self.death_frame == 70:
             self.death_frame = 0
             choices = choice((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24))
-            if self.color == "green":
-                if choices == 1:
-                    Coin(self.game, self.pos.x, self.pos.y)
-                elif choices == 2:
-                    Heart(self.game, self.pos.x, self.pos.y)
-            elif self.color == "red":
-                if choices == 0 or choices == 1 or choices == 5:
-                    Coin(self.game, self.pos.x, self.pos.y)
-                elif choices == 2 or choices == 3 or choices == 4:
-                    Heart(self.game, self.pos.x, self.pos.y)
-            elif self.color == "blue":
-                if choices == 1 or choices == 0:
-                    Coin(self.game, self.pos.x, self.pos.y)
-                elif choices == 2 or choices == 3:
-                    Heart(self.game, self.pos.x, self.pos.y)
+            if choices == 1:
+                Coin(self.game, self.pos.x, self.pos.y)
+            elif choices == 2:
+                HEART(self.game, self.pos.x, self.pos.y)
             self.kill()
         if self.rect.colliderect((self.game.player.rect.x - 30, self.game.player.rect.y - 10,
                                   self.game.player.rect.width + 60, self.game.player.rect.height + 60)) == 1 and self.mob_death is False:
@@ -2188,7 +2164,6 @@ class Golem(pg.sprite.Sprite):
         self.current_frame_attack = 0
         self.attack = False
         self.mob_death = False
-        self.knockback = SLIME_KNOCKBACK
         self.current_frame = 0
         self.current_frame_attack = 0
         self.attack = False
@@ -2357,7 +2332,6 @@ class Spider(pg.sprite.Sprite):
         self.being_attacked = False
         self.damage_time = 0
         self.forward_on = True
-        self.knockback = SLIME_KNOCKBACK
         self.back_on = False
         self.left_on = False
         self.right_on = False
@@ -2393,22 +2367,12 @@ class Spider(pg.sprite.Sprite):
         if self.current_frame == 100:
             self.current_frame = 0
             if self.mob_death is True:
-                choices = choice((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24))
-                if self.color == "green":
-                    if choices == 1:
-                        Coin(self.game, self.pos.x, self.pos.y)
-                    elif choices == 2:
-                        Heart(self.game, self.pos.x, self.pos.y)
-                elif self.color == "red":
-                    if choices == 0 or choices == 1 or choices == 5:
-                        Coin(self.game, self.pos.x, self.pos.y)
-                    elif choices == 2 or choices == 3 or choices == 4:
-                        Heart(self.game, self.pos.x, self.pos.y)
-                elif self.color == "blue":
-                    if choices == 1 or choices == 0:
-                        Coin(self.game, self.pos.x, self.pos.y)
-                    elif choices == 2 or choices == 3:
-                        Heart(self.game, self.pos.x, self.pos.y)
+                choices = choice(
+                    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24))
+                if choices == 1:
+                    Coin(self.game, self.pos.x, self.pos.y)
+                elif choices == 2:
+                    HEART(self.game, self.pos.x, self.pos.y)
                 self.kill()
 
         elif self.mob_death is False:
@@ -2509,22 +2473,33 @@ class Worm(pg.sprite.Sprite):
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self._layer = MOB_LAYER
-        self.image = self.game.worm_back[0]
+        self.color = choice(("green", "red", "blue"))
+        if self.color == "green":
+            self.image = game.green_spider_for[0]
+        elif self.color == "blue":
+            self.image = game.blue_spider_for[0]
+        elif self.color == "red":
+            self.image = game.red_spider_for[0]
         self.rect = self.image.get_rect()
         self.hit_rect = self.rect
         self.pos = vec(x, y)
         self.rect.center = self.pos
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
-        self.health = 50
+        if self.color == "red":
+            self.health = RED_SLIME_HEALTH
+        elif self.color == "blue":
+            self.health = BLUE_SLIME_HEALTH
+        elif self.color == "green":
+            self.health = GREEN_SLIME_HEALTH
         self.current_frame = 0
         self.mob_death = False
+        self.slime_knockback = SLIME_KNOCKBACK
         self.mob_agro = True
         self.being_attacked = False
         self.damage_time = 0
         self.forward_on = True
         self.back_on = False
-        self.knockback = SLIME_KNOCKBACK
         self.left_on = False
         self.right_on = False
         self.death_frame = 0
